@@ -1,0 +1,31 @@
+﻿// url count <get>: http://localhost:9200/location/_count
+// url delete index <delete>: http://localhost:9200/location
+// create mapping <put>: http://localhost:9200/location 
+{
+    "settings": {
+        "number_of_shards": 1,
+        "number_of_replicas": 1
+    },
+    "mappings": {
+        "properties": {
+            "id": {
+                "type": "keyword"
+            },
+            "fuel": {
+                "type": "text"
+            },
+            "number": {
+                "type": "long"
+            },
+            "name": {
+                "type": "text"
+            },
+            "address": {
+                "type": "text"
+            },
+            "coordinate": {
+                "type": "geo_point"
+            }
+        }
+    }
+}
