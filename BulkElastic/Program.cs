@@ -5,8 +5,11 @@ namespace BulkElastic
 {
     internal class Program
     {
-        private static readonly string _uri = "http://localhost:9200/";
+        private static readonly string _uri = "http://localhost:9200/"; // Host default
         private static readonly string _index = "location"; // Index
+
+        private static readonly string _username = "elastic";
+        private static readonly string _password = "zBpIRYL-XOGsOgAx8SEq";
 
         private static readonly int _number = 20_000_000; // Total documents indexing
         private static readonly int _part = 20_000; // Length of part bulk-request
@@ -147,8 +150,9 @@ namespace BulkElastic
             client.BaseAddress = new Uri(_uri);
             client.DefaultRequestHeaders.Accept.Clear();
 
-            //client.DefaultRequestHeaders.Add("Authorization", "Basic ZWxhc3RpYzp6QnBJUllMLVhPR3NPZ0F4OFNFcQ==");
-            client.DefaultRequestHeaders.Add("Authorization", "Basic ZWxhc3RpYzpsb05WdUxBLVFRRj12TVhLKmRkbg==");
+            // Authentication
+            var byteArray = Encoding.ASCII.GetBytes($"{_username}:{_password}");
+            client.DefaultRequestHeaders.Add("Authorization", $"Basic {Convert.ToBase64String(byteArray)}");
 
             var httpContent = new StringContent(value, Encoding.UTF8, "application/json");
 
