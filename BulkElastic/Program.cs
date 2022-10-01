@@ -7,6 +7,7 @@ namespace BulkElastic
     {
         private static readonly string _uri = "http://localhost:9200/"; // Host default
         private static readonly string _index = "location"; // Index
+        private static readonly string _geoProp = "coordinate"; // Geo-point type
 
         private static readonly string _username = "elastic";
         private static readonly string _password = "zBpIRYL-XOGsOgAx8SEq";
@@ -72,7 +73,7 @@ namespace BulkElastic
 
                 payload.AppendLine($"{{\"index\":{{\"_index\":\"{_index}\"}}}}");
 
-                string docPayload = $"{{\"id\": {i + 1}, \"fuel\": \"{RandomFuel()}\", \"number\": {tempNumber}, \"name\":\"Location {i + 1}\",\"address\": \"{address}\",\"coordinate\":{{\"lat\":{lat},\"lon\": {lng}}}}}";
+                string docPayload = $"{{\"id\": {i + 1}, \"fuel\": \"{RandomFuel()}\", \"number\": {tempNumber}, \"name\":\"Location {i + 1}\",\"address\": \"{address}\",\"{_geoProp}\":{{\"lat\":{lat},\"lon\": {lng}}}}}";
                 payload.AppendLine(docPayload);
             }
 
