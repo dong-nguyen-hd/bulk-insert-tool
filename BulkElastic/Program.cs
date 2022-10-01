@@ -67,7 +67,7 @@ namespace BulkElastic
                 }
 
                 // Random number
-                if (number < 10_000) tempNumber = _rand.Next(7, 9);
+                if (number < 10_000) tempNumber = _rand.Next(7, 10);
                 else tempNumber = _rand.Next(0, 2);
 
 
