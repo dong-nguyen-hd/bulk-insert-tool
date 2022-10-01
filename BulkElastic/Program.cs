@@ -11,7 +11,7 @@ namespace BulkElastic
         private static readonly string _username = "elastic";
         private static readonly string _password = "zBpIRYL-XOGsOgAx8SEq";
 
-        private static readonly int _number = 20_000_000; // Total documents indexing
+        private static readonly int _number = 400_000; // Total documents indexing
         private static readonly int _part = 20_000; // Length of part bulk-request
 
         private static Random _rand = new();
@@ -49,6 +49,7 @@ namespace BulkElastic
                 string lng;
                 string lat;
                 string address;
+                int tempNumber = 0;
 
                 if (i >= count)
                 {
@@ -64,9 +65,14 @@ namespace BulkElastic
                     address = _addressDetail[i];
                 }
 
+                // Random number
+                if (number < 10_000) tempNumber = _rand.Next(7, 9);
+                else tempNumber = _rand.Next(0, 2);
+
+
                 payload.AppendLine($"{{\"index\":{{\"_index\":\"{_index}\"}}}}");
 
-                string docPayload = $"{{\"id\": {i + 1}, \"fuel\": \"{RandomFuel()}\", \"number\": {_rand.Next()}, \"name\":\"Location {i + 1}\",\"address\": \"{address}\",\"coordinate\":{{\"lat\":{lat},\"lon\": {lng}}}}}";
+                string docPayload = $"{{\"id\": {i + 1}, \"fuel\": \"{RandomFuel()}\", \"number\": {tempNumber}, \"name\":\"Location {i + 1}\",\"address\": \"{address}\",\"coordinate\":{{\"lat\":{lat},\"lon\": {lng}}}}}";
                 payload.AppendLine(docPayload);
             }
 
