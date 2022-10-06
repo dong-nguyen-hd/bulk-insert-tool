@@ -68,10 +68,10 @@ namespace BulkElastic
 
                 // Random number
                 if (number < 10_000) tempNumber = _rand.Next(7, 10);
-                else tempNumber = _rand.Next(0, 2);
+                else tempNumber = _rand.Next(0, 3);
 
 
-                payload.AppendLine($"{{\"index\":{{\"_index\":\"{_index}\"}}}}");
+                payload.AppendLine($"{{\"index\":{{\"_index\":\"{_index}\", \"_id\":\"{i+1}\"}}}}");
 
                 string docPayload = $"{{\"id\": {i + 1}, \"fuel\": \"{RandomFuel()}\", \"number\": {tempNumber}, \"name\":\"Location {i + 1}\",\"address\": \"{address}\",\"{_geoProp}\":{{\"lat\":{lat},\"lon\": {lng}}}}}";
                 payload.AppendLine(docPayload);
